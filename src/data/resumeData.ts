@@ -18,6 +18,11 @@ export const PERSONAL_INFO = {
   phoneFormatted: '0915 507 0427',
   rawPhone: '09155070427',
   email: 'Mr.naserrii@gmail.com',
+  secondaryEmail: 'mohammadreza.naseri.eng@gmail.com',
+  emails: [
+    'Mr.naserrii@gmail.com',
+    'mohammadreza.naseri.eng@gmail.com'
+  ],
   location: 'مشهد مقدس، خراسان رضوی',
   education: 'کارشناسی مهندسی عمران',
 };
