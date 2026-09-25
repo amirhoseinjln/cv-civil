@@ -73,18 +73,26 @@ export const Navbar: React.FC<NavbarProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-[#8C95A8]">
+          <div className="flex items-center gap-3 text-[#8C95A8]">
+            <a 
+              href={`mailto:${PERSONAL_INFO.secondaryEmail}`} 
+              className="hover:text-[#EA845A] transition-colors font-sans flex items-center gap-1.5 text-xs text-[#DCE2ED]"
+              title="ایمیل رسمی مهندسی"
+            >
+              <Mail className="w-3 h-3 text-[#DE7247]" />
+              <span>{PERSONAL_INFO.secondaryEmail}</span>
+            </a>
+            <span className="text-[#2C3547]">|</span>
             <a 
               href={`mailto:${PERSONAL_INFO.email}`} 
               className="hover:text-[#EA845A] transition-colors font-sans flex items-center gap-1.5 text-xs text-[#DCE2ED]"
-              title="ایمیل رسمی کاری"
+              title="ایمیل کاری مستقیم"
             >
-              <Mail className="w-3 h-3 text-[#DE7247]" />
               <span>{PERSONAL_INFO.email}</span>
             </a>
             <span className="text-[#2C3547]">|</span>
             <div className="flex items-center gap-1.5">
-              <span className="text-xs text-[#7B879E]">تماس مستقیم:</span>
+              <span className="text-xs text-[#7B879E]">تماس:</span>
               <a 
                 href={`tel:${PERSONAL_INFO.phone}`} 
                 className="hover:text-[#EA845A] transition-colors font-bold text-[#E0E6F0]"
@@ -231,11 +239,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span>تماس مستقیم: <bdi dir="ltr" className="ltr-num">{PERSONAL_INFO.phone}</bdi></span>
               </a>
               <a
+                href={`mailto:${PERSONAL_INFO.secondaryEmail}`}
+                className="w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold text-[#DCE2ED] glass-sub-panel rounded-lg hover:border-[#EA845A]/40"
+              >
+                <Mail className="w-3.5 h-3.5 text-[#DE7247]" />
+                <span className="font-mono text-[11.5px]">{PERSONAL_INFO.secondaryEmail}</span>
+              </a>
+              <a
                 href={`mailto:${PERSONAL_INFO.email}`}
                 className="w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold text-[#DCE2ED] glass-sub-panel rounded-lg hover:border-[#EA845A]/40"
               >
                 <Mail className="w-3.5 h-3.5 text-[#DE7247]" />
-                <span className="font-mono">{PERSONAL_INFO.email}</span>
+                <span className="font-mono text-[11.5px]">{PERSONAL_INFO.email}</span>
               </a>
             </div>
           </div>
