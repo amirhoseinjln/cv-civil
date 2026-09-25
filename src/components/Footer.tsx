@@ -57,9 +57,15 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
 
         {/* Quick Contact Line */}
         <div className="flex flex-wrap items-center justify-between gap-4 text-xs text-[#9AA3B5] pb-2">
-          <div className="flex items-center gap-2">
-            <Mail className="w-3.5 h-3.5 text-[#38BDF8]" />
-            <span className="text-[#6B768C]">ایمیل ارتباط کاری:</span>
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2">
+              <Mail className="w-3.5 h-3.5 text-[#38BDF8]" />
+              <span className="text-[#6B768C]">ایمیل‌ها:</span>
+              <a href={`mailto:${PERSONAL_INFO.secondaryEmail}`} className="hover:text-[#38BDF8] font-mono text-[#DCE2ED] transition-colors">
+                {PERSONAL_INFO.secondaryEmail}
+              </a>
+            </div>
+            <span className="text-[#2C3547] hidden sm:inline">|</span>
             <a href={`mailto:${PERSONAL_INFO.email}`} className="hover:text-[#38BDF8] font-mono text-[#DCE2ED] transition-colors">
               {PERSONAL_INFO.email}
             </a>
