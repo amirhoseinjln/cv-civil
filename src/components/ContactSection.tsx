@@ -8,9 +8,8 @@ interface ContactSectionProps {
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
   const [copiedPhone, setCopiedPhone] = useState(false);
-  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
   const phoneNumber = PERSONAL_INFO.phone;
-  const emailAddress = PERSONAL_INFO.email;
 
   const copyToClipboard = (text: string, type: 'phone' | 'email') => {
     navigator.clipboard.writeText(text);
@@ -18,8 +17,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
       setCopiedPhone(true);
       setTimeout(() => setCopiedPhone(false), 2000);
     } else {
-      setCopiedEmail(true);
-      setTimeout(() => setCopiedEmail(false), 2000);
+      setCopiedEmail(text);
+      setTimeout(() => setCopiedEmail(null), 2000);
     }
   };
 
@@ -128,52 +127,63 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
               </div>
             </div>
 
-            {/* Official Work Email Block */}
-            <div className="text-center py-4 sm:py-5 space-y-3 bg-[#0B0F17]/60 rounded-xl border border-[#1C2638] p-4">
+            {/* Official Work Emails Block */}
+            <div className="py-4 sm:py-5 space-y-4 bg-[#0B0F17]/60 rounded-xl border border-[#1C2638] p-4 sm:p-5">
               <div className="flex items-center justify-center gap-1.5 text-xs text-[#38BDF8]">
                 <Mail className="w-3.5 h-3.5" />
-                <span className="cad-coordinate">OFFICIAL WORK EMAIL</span>
+                <span className="cad-coordinate">OFFICIAL WORK EMAILS</span>
               </div>
 
-              <div className="flex items-center justify-center">
-                <a
-                  href={`mailto:${emailAddress}`}
-                  dir="ltr"
-                  className="text-xl sm:text-2xl font-black text-[#FAF8F5] hover:text-[#38BDF8] tracking-wider font-mono transition-colors"
-                >
-                  {emailAddress}
-                </a>
-              </div>
-
-              <p className="text-xs sm:text-sm text-[#9FA8B8] max-w-md mx-auto">
+              <p className="text-xs sm:text-sm text-[#9FA8B8] max-w-md mx-auto text-center">
                 جهت ارسال اسناد فنی، مناقصات، مکاتبات رسمی و نقشه‌های اجرایی
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                <a
-                  href={`mailto:${emailAddress}`}
-                  className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl glass-sub-panel hover:border-[#0EA5E9]/50 text-[#FAF8F5] font-semibold text-xs sm:text-sm transition-colors cursor-pointer"
-                >
-                  <Mail className="w-4 h-4 text-[#38BDF8]" />
-                  <span>ارسال ایمیل کاری</span>
-                </a>
+              <div className="space-y-2.5 pt-1">
+                {PERSONAL_INFO.emails.map((email) => (
+                  <div
+                    key={email}
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3 sm:px-4 rounded-xl glass-sub-panel border border-[#1E293B] hover:border-[#0EA5E9]/40 transition-colors"
+                  >
+                    <div className="flex items-center gap-2 overflow-hidden">
+                      <Mail className="w-4 h-4 text-[#38BDF8] shrink-0" />
+                      <a
+                        href={`mailto:${email}`}
+                        dir="ltr"
+                        className="text-xs sm:text-sm font-bold text-[#FAF8F5] hover:text-[#38BDF8] tracking-wide font-mono transition-colors truncate"
+                      >
+                        {email}
+                      </a>
+                    </div>
 
-                <button
-                  onClick={() => copyToClipboard(emailAddress, 'email')}
-                  className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl glass-sub-panel hover:border-[#0EA5E9]/50 text-[#FAF8F5] font-semibold text-xs sm:text-sm transition-colors cursor-pointer"
-                >
-                  {copiedEmail ? (
-                    <span className="flex items-center gap-1.5 text-emerald-400 text-xs font-mono">
-                      <Check className="w-4 h-4" />
-                      ایمیل کپی شد
-                    </span>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4 text-[#38BDF8]" />
-                      <span>کپی آدرس ایمیل</span>
-                    </>
-                  )}
-                </button>
+                    <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                      <a
+                        href={`mailto:${email}`}
+                        className="px-3 py-1.5 rounded-lg bg-[#0284C7]/20 hover:bg-[#0284C7]/40 text-[#38BDF8] hover:text-white text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer"
+                      >
+                        <Mail className="w-3.5 h-3.5" />
+                        <span>ارسال ایمیل</span>
+                      </a>
+
+                      <button
+                        onClick={() => copyToClipboard(email, 'email')}
+                        className="p-1.5 px-2.5 rounded-lg glass-sub-panel hover:border-[#0EA5E9]/50 text-[#9FA8B8] hover:text-white text-xs transition-colors flex items-center gap-1 cursor-pointer"
+                        title="کپی آدرس ایمیل"
+                      >
+                        {copiedEmail === email ? (
+                          <span className="flex items-center gap-1 text-emerald-400 font-mono text-[11px]">
+                            <Check className="w-3.5 h-3.5" />
+                            کپی شد
+                          </span>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5 text-[#38BDF8]" />
+                            <span className="text-[11px]">کپی</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
